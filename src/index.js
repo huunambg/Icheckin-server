@@ -1,0 +1,27 @@
+const express = require('express')
+const app = express()
+const port = 3000;
+const bodyParser = require('body-parser')
+const Personnel_Router = require("./Router/personnel.router")
+const Rollcall_Router = require("./Router/rollcall.router")
+const Location_Router = require("./Router/location.router")
+const Mac_Address_Router = require("./Router/mac_address.router")
+const QR_Code_Router = require("./Router/qr_code.router")
+const Notification_Router = require("./Router/notification.router")
+const Break_Time_Router = require("./Router/break_time.router")
+const Auth_Middleware = require("./Auth/authmiddleware")
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use("/public/api",Personnel_Router)
+app.use(Auth_Middleware.is_Auth)
+app.use("/public/api",Notification_Router)
+app.use("/public/api",Rollcall_Router)
+app.use("/public/api",Location_Router)
+app.use("/public/api",Mac_Address_Router)
+app.use("/public/api",QR_Code_Router)
+app.use("/public/api",Break_Time_Router)
+app.listen(port,function(){
+  console.log("server start on :",port)
+})
+
+
