@@ -9,3 +9,5 @@ router.get("/get-all-personnel",Personnel_Controller.get_All_Personnel)
 router.post("/login-personnel",Personnel_Controller.login_Personnel)
 
 module.exports = router
+
+// ahihi
