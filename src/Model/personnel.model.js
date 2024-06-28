@@ -91,6 +91,19 @@ Personnel_Model.update = function(personnel,result){
 }
 
 
+Personnel_Model.delete = function(personnel_id,result){
+    let sql = `DELETE FROM personnel  WHERE personnel_id = '${personnel_id}'`
+    db.query(sql,function(err,data){
+        if(err){
+            result("Fail")
+        }
+        else{
+            result(data)
+        }
+    })
+}
+
+
 Personnel_Model.getAll = function (result) {
     let sql = `SELECT * FROM personnel`
 

@@ -74,10 +74,24 @@ const update_Personnel = function (req, res) {
 }
 
 
+const delete_Personnel = function (req, res) {
+    let personnel_id = req.params.personnel_id
+    Personnel_Model.delete(personnel_id, function (result) {
+        if (result != "Fail") {
+            res.send({ data: result, message: "Xóa thành công" })
+        }else{
+            res.status(401).send({ data: result, message: "Xóa thất bại" })
+        }
+    })
+
+}
+
+
+
 const Personnel_Controller = {
     create_Personnel,
     get_All_Personnel,
-    login_Personnel, update_Personnel
+    login_Personnel, update_Personnel,delete_Personnel
 }
 
 
