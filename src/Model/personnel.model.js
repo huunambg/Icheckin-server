@@ -71,10 +71,6 @@ Personnel_Model.getOne = function(personnel,result){
 
 
     })
-
-
-
-
 }
 
 
