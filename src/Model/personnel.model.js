@@ -74,6 +74,21 @@ Personnel_Model.getOne = function(personnel,result){
 }
 
 
+Personnel_Model.update = function(personnel,result){
+
+    let sql = `UPDATE personnel SET ?  WHERE personnel_id = '${personnel.id}'`
+
+    db.query(sql,personnel,function(err,data){
+        if(err){
+            result("Fail")
+        }
+        else{
+            result(data)
+        }
+    })
+}
+
+
 Personnel_Model.getAll = function (result) {
     let sql = `SELECT * FROM personnel`
 

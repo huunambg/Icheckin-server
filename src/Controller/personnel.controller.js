@@ -33,16 +33,16 @@ const login_Personnel = function (req, res) {
     Personnel_Model.getOne(personnel, async function (result) {
         if (result != "Fail") {
             let data = {
-                personnel_id:result.personnel_id,
-                name:result.name,
+                personnel_id: result.personnel_id,
+                name: result.name,
                 email: result.email,
-                password :result.password,
+                password: result.password,
 
             }
-            
+
             let token = await JWT.make_token(data)
 
-            res.send({ data: result,token :token, message: "Login personnel complete" })
+            res.send({ data: result, token: token, message: "Login personnel complete" })
         } else {
             res.status(401).send({ message: "Đăng nhập thất bại tài khoản hoặc mật khẩu không chính xác." })
         }
@@ -61,10 +61,23 @@ const get_All_Personnel = function (req, res) {
 
 }
 
+const update_Personnel = function (req, res) {
+    let personnel = req.body
+    Personnel_Model.update(personnel, function (result) {
+        if (result != "Fail") {
+            res.send({ data: result, message: "Cập nhật thông tin thành công" })
+        }else{
+            res.send({ data: result, message: "Cập nhật thông tin thất bại" })
+        }
+    })
+
+}
+
+
 const Personnel_Controller = {
     create_Personnel,
     get_All_Personnel,
-    login_Personnel
+    login_Personnel, update_Personnel
 }
 
 
