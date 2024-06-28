@@ -4,21 +4,18 @@ const JWT = require("../Auth/jsonwebtoken")
 
 const create_Personnel = function (req, res) {
     let data = req.body
-    let personnel_id = req.body.personnel_id
     Personnel_Model.insert(data, function (result) {
+
         if (result == "Fail") {
             res.status(502).send({ message: "Error Server" })
         } else if (result == "Email_already_exists") {
             res.status(401).send({ message: "Email already exists" })
-        }
-        else if (result == "Personnel_id_already_exists") {
-            res.status(401).send({ message: "Personnel id already exists" })
         } else {
-            let rollcall_detail_res = Rollcall_Controller.init_Rollcall_Detail(personnel_id)
+            let rollcall_detail_res = Rollcall_Controller.init_Rollcall_Detail(result)
             if (rollcall_detail_res != "Fail") {
-                let rollcall_detail_res_day = Rollcall_Controller.init_Rollcall_Detail_Day(personnel_id)
+                let rollcall_detail_res_day = Rollcall_Controller.init_Rollcall_Detail_Day(result)
                 if (rollcall_detail_res_day != "Fail") {
-                    res.send({ data: result, message: "Create personnel complete" })
+                    res.send({ data: { email: data.email, password: data.password, personnel_id: result }, message: "Create personnel complete" })
                 }
 
             }
@@ -63,10 +60,11 @@ const get_All_Personnel = function (req, res) {
 
 const update_Personnel = function (req, res) {
     let personnel = req.body
-    Personnel_Model.update(personnel, function (result) {
+    let personnel_id = req.params.personnel_id
+    Personnel_Model.update(personnel_id, personnel, function (result) {
         if (result != "Fail") {
             res.send({ data: result, message: "Cập nhật thông tin thành công" })
-        }else{
+        } else {
             res.send({ data: result, message: "Cập nhật thông tin thất bại" })
         }
     })
@@ -79,7 +77,7 @@ const delete_Personnel = function (req, res) {
     Personnel_Model.delete(personnel_id, function (result) {
         if (result != "Fail") {
             res.send({ data: result, message: "Xóa thành công" })
-        }else{
+        } else {
             res.status(401).send({ data: result, message: "Xóa thất bại" })
         }
     })
@@ -91,7 +89,7 @@ const delete_Personnel = function (req, res) {
 const Personnel_Controller = {
     create_Personnel,
     get_All_Personnel,
-    login_Personnel, update_Personnel,delete_Personnel
+    login_Personnel, update_Personnel, delete_Personnel
 }
 
 

@@ -11,12 +11,12 @@ const Personnel_Model = function (p) {
 }
 
 
+
+
 Personnel_Model.insert = function (data, result) {
 
     let sql_check_email = `SELECT personnel .* FROM personnel WHERE email ='${data.email}'`
-    let sql_check_personnel_id = `SELECT personnel .* FROM personnel WHERE personnel_id ='${data.personnel_id}'`
     let sql = "INSERT INTO personnel SET ?"
-
 
     db.query(sql_check_email, function (err, data_email) {
         if (err) {
@@ -25,24 +25,12 @@ Personnel_Model.insert = function (data, result) {
             result("Email_already_exists")
         }
         else {
-            db.query(sql_check_personnel_id, function (err, data_personnel_id) {
+            db.query(sql, data, function (err,res_insert) {
                 if (err) {
                     result("Fail")
                 }
-                else if (data_personnel_id.length > 0) {
-                    result("Personnel_id_already_exists")
-                }
                 else {
-                    db.query(sql, data, function (err) {
-                        if (err) {
-                            result("Fail")
-                        }
-                        else {
-                            result(data)
-                        }
-
-                    })
-
+                    result(res_insert.insertId)
                 }
 
             })
@@ -74,9 +62,9 @@ Personnel_Model.getOne = function(personnel,result){
 }
 
 
-Personnel_Model.update = function(personnel,result){
-    console.log(personnel)
-    let sql = `UPDATE personnel SET ?  WHERE personnel_id = '${personnel.personnel_id}'`
+Personnel_Model.update = function(personnel_id,personnel,result){
+    console.log(personnel_id)
+    let sql = `UPDATE personnel SET ?  WHERE personnel_id = '${personnel_id}'`
 
      console.log(sql)
 
