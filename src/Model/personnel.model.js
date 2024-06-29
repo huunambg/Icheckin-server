@@ -107,6 +107,21 @@ Personnel_Model.getAll = function (result) {
     })
 }
 
+Personnel_Model.getWithFilter = function (search,result) {
+    let sql = `SELECT * FROM personnel where name LIKE '%${search}%'`
+    db.query(sql, function (err, data) {
+        if (err) {
+            console.log(err)
+            result("Fail")
+        }
+        else {
+            result(data)
+        }
+
+    })
+}
+
+
 
 module.exports = Personnel_Model
 

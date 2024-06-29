@@ -5,7 +5,6 @@ const JWT = require("../Auth/jsonwebtoken")
 const create_Personnel = function (req, res) {
     let data = req.body
     Personnel_Model.insert(data, function (result) {
-
         if (result == "Fail") {
             res.status(502).send({ message: "Error Server" })
         } else if (result == "Email_already_exists") {
@@ -57,6 +56,15 @@ const get_All_Personnel = function (req, res) {
     })
 
 }
+const get_Personnel_With_Filter = function (req, res) {
+    let search = req.params.search
+    Personnel_Model.getWithFilter(search, function (result) {
+        if (result != "Fail") {
+            res.send({ data: result })
+        }
+    })
+
+}
 
 const update_Personnel = function (req, res) {
     let personnel = req.body
@@ -86,10 +94,12 @@ const delete_Personnel = function (req, res) {
 
 
 
+
+
 const Personnel_Controller = {
     create_Personnel,
     get_All_Personnel,
-    login_Personnel, update_Personnel, delete_Personnel
+    login_Personnel, update_Personnel, delete_Personnel, get_Personnel_With_Filter
 }
 
 

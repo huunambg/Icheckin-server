@@ -4,6 +4,7 @@ const Personnel_Controller = require("../Controller/personnel.controller")
 
 router.post("/register",Personnel_Controller.create_Personnel)
 router.get("/get-all-personnel",Personnel_Controller.get_All_Personnel)
+router.get("/get-all-personnel/:search",Personnel_Controller.get_Personnel_With_Filter)
 router.post("/login-personnel",Personnel_Controller.login_Personnel)
 router.put("/update-personnel/:personnel_id",Personnel_Controller.update_Personnel)
 router.delete("/delete-personnel/:personnel_id",Personnel_Controller.delete_Personnel)
