@@ -63,11 +63,7 @@ Personnel_Model.getOne = function(personnel,result){
 
 
 Personnel_Model.update = function(personnel_id,personnel,result){
-    console.log(personnel_id)
     let sql = `UPDATE personnel SET ?  WHERE personnel_id = '${personnel_id}'`
-
-     console.log(sql)
-
     db.query(sql,personnel,function(err,data){
         if(err){
             result("Fail")

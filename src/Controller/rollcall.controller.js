@@ -119,7 +119,6 @@ let get_Rollcall_Detail_Day_by_Year_Month = function (req, res) {
     let personnel_id = req.body.personnel_id
     let month = req.body.month
     let year = req.body.year
-
     let year_month = `${year}${month}`
 
     Rollcall_Model.get_Rollcall_Detail_Day_by_Year_Month(year_month, personnel_id, function (result) {

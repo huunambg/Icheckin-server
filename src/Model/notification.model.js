@@ -17,12 +17,25 @@ Notification_Model.insert_Notification = function(notification,result){
     })
 }
 
+Notification_Model.update_Notification = function(notification,id,result){
+
+    let sql_notification = `UPDATE notification SET ? WHERE id = '${id}'`
+
+    db.query(sql_notification,notification,function(err,data){
+        if(err){
+            console.log(err)
+            result("Fail")
+        }else{
+            result(data)
+        }
+    })
+}
+
 
 
 Notification_Model.delete_Notification = function(id,result){
 
-    let sql = `DELETE FROM notification WHERE notification_id = '${id}'`
-
+    let sql = `DELETE FROM notification WHERE id = '${id}'`
     db.query(sql,function(err,data){
         if(err){
             result("Fail")

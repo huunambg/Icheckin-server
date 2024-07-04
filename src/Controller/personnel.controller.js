@@ -84,9 +84,13 @@ const delete_Personnel = function (req, res) {
     let personnel_id = req.params.personnel_id
     Personnel_Model.delete(personnel_id, function (result) {
         if (result != "Fail") {
-            res.send({ data: result, message: "Xóa thành công" })
+            if(result.affectedRows==0){
+                res.status(401).send({ data: result, message: "Không tìm thấy người dùng" })
+              }else{
+                res.send({ data: result, message: "Xóa thành công" })
+              }
         } else {
-            res.status(401).send({ data: result, message: "Xóa thất bại" })
+            res.send({ data: result, message: "Xóa thất bại" })
         }
     })
 
