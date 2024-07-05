@@ -2,7 +2,6 @@ const Notification_Model = require('../Model/notification.model')
 const Personnel_Model = require('../Model/personnel.model')
 const insert_Notification = function(req,res){
     let currentDate = new Date();
-    currentDate.setHours(currentDate.getHours() + 7);
     let notification = req.body
     notification.time =currentDate
 
