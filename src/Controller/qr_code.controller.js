@@ -21,7 +21,7 @@ const get_QR_Code = function(req,res){
 
     QR_Code_Model.get(function(result){
         if(result!="Fail"){
-            res.send({data : result[0]['content'] ,message : "Get QR Code complete"})
+            res.send({data : result,message : "Get QR Code complete"})
         }
         else{
             res.status(401).send({message : "get QR Code Faild"})
