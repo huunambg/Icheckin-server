@@ -82,7 +82,7 @@ const update_Personnel = function (req, res) {
 const update_Avatar = function (req, res) {
     let image = req.body.image
     let personnel_id = req.params.personnel_id
-    Personnel_Model.update(personnel_id, image, function (result) {
+    Personnel_Model.updateAvatar(personnel_id, image, function (result) {
         if (result != "Fail") {
             res.send({ data: result, message: "Cập nhật thông tin thành công" })
         } else {
