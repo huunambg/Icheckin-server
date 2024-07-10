@@ -79,6 +79,19 @@ const update_Personnel = function (req, res) {
 
 }
 
+const update_Avatar = function (req, res) {
+    let image = req.body.image
+    let personnel_id = req.params.personnel_id
+    Personnel_Model.update(personnel_id, image, function (result) {
+        if (result != "Fail") {
+            res.send({ data: result, message: "Cập nhật thông tin thành công" })
+        } else {
+            res.send({ data: result, message: "Cập nhật thông tin thất bại" })
+        }
+    })
+
+}
+
 
 const delete_Personnel = function (req, res) {
     let personnel_id = req.params.personnel_id
@@ -103,7 +116,7 @@ const delete_Personnel = function (req, res) {
 const Personnel_Controller = {
     create_Personnel,
     get_All_Personnel,
-    login_Personnel, update_Personnel, delete_Personnel, get_Personnel_With_Filter
+    login_Personnel, update_Personnel, delete_Personnel, get_Personnel_With_Filter,update_Avatar
 }
 
 

@@ -74,6 +74,19 @@ Personnel_Model.update = function(personnel_id,personnel,result){
     })
 }
 
+Personnel_Model.updateAvatar = function(personnel_id,image,result){
+    let sql = `UPDATE personnel SET image ='${image}'?  WHERE personnel_id = '${personnel_id}'`
+    db.query(sql,personnel,function(err,data){
+        if(err){
+            result("Fail")
+        }
+        else{
+            result(data)
+        }
+    })
+}
+
+
 
 Personnel_Model.delete = function(personnel_id,result){
     let sql = `DELETE FROM personnel  WHERE personnel_id = '${personnel_id}'`
