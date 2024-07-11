@@ -9,7 +9,7 @@ const insert_Notification = function (req, res) {
     let notification = req.body
     notification.time = currentDate
 
-    Notification_Model.insert_Notification(notification, function (result) {
+    Notification_Model.insert_Notification(notification, async function (result) {
         if (result != "Fail") {
             Personnel_Model.getAll(function (result_personnel) {
 
@@ -35,7 +35,7 @@ const insert_Notification = function (req, res) {
                     body: notification.description
                 }
             };
-            sendNotification(message)
+         await  sendNotification(message)
             res.send({
                 message: "Insert Notification Complete"
             })
@@ -84,22 +84,37 @@ const get_All_Notification = function (req, res) {
 
 }
 
-const sendNotification = function (message) {
+const sendNotification = async function (message) {
     try {
-        admin.messaging().send(message).then((response) => {
+      await  admin.messaging().send(message).then((response) => {
+        console.log(response)
         }).catch((error) => {
-           
+            console.log(error)
         })
     } catch (e) {
-        //console.log(e)
+        console.log(e)
     }
+}
 
+
+const pushNotification= async function(req,res){
+    let notification = req.body
+    const message = {
+        topic: "personnel",
+        notification: {
+            title: notification.title,
+            body: notification.description
+        }
+    };
+
+    await sendNotification(message);
+    res.send("Success")
 }
 
 
 const Notification_Controller = {
     insert_Notification,
-    get_All_Notification, update_Notification, delete_Notification
+    get_All_Notification, update_Notification, delete_Notification,pushNotification
 }
 
 module.exports = Notification_Controller
