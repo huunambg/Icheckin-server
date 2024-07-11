@@ -38,4 +38,21 @@ Break_Time_Model.get = function(result){
 
 }
 
+
+Break_Time_Model.update = function(break_time,result){
+    let sql = `UPDATE break_time SET time = '${break_time}' WHERE id ='2'`
+    db.query(sql,function(err,data){
+        if(err){
+            console.log(err)
+            result("Fail")
+        }
+        else{
+            result(data)
+        }
+        
+    })
+
+
+}
+
 module.exports = Break_Time_Model
