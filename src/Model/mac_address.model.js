@@ -31,6 +31,32 @@ Mac_Address_Model.get = function(result){
 
 }
 
+Mac_Address_Model.update = function(mac,id,result){
+    let sql = `UPDATE mac_address SET ? WHERE id = '${id}'`
+    db.query(sql,mac,function(err,data){
+        if(err){
+            result("Fail")
+        }else{
+            result(data)
+        }
+    })
+
+
+}
+
+Mac_Address_Model.delete = function(id,result){
+    let sql = `DELETE FROM mac_address WHERE id = '${id}'`
+    db.query(sql,function(err,data){
+        if(err){
+            result("Fail")
+        }else{
+            result(data)
+        }
+    })
+
+
+}
+
 
 
 module.exports =Mac_Address_Model

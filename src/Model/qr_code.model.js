@@ -33,4 +33,17 @@ QR_Code_Model.get = function(result){
 }
 
 
+QR_Code_Model.delete = function(id,result){
+
+    let sql = `DELETE FROM qr_code WHERE id = '${id}'`
+
+    db.query(sql,function(err,data){
+        if(err){
+            result("Fail")
+        }else{
+            result(data)
+        }
+    })
+}
+
 module.exports = QR_Code_Model

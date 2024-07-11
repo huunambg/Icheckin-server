@@ -6,8 +6,7 @@ const router = app.Router()
 
 router.post("/create-location",Location_Controller.insert_Location)
 router.get("/personnel-get-location",Location_Controller.get_Location)
-
-
+router.put("/update-location",Location_Controller.update_Location)
 
 
 module.exports = router

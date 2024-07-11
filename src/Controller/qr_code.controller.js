@@ -30,12 +30,25 @@ const get_QR_Code = function(req,res){
 
 }
 
+const delete_QR_Code = function(req,res){
+    let id = req.params.id
+    QR_Code_Model.delete(id,function(result){
+        if(result!="Fail"){
+            res.send({data : result,message : "Delete QR Code complete"})
+        }
+        else{
+            res.status(401).send({message : "Delete QR Code Faild"})
+        }
+    })
+
+}
+
 
 
 
 const QR_Code_Controller ={
     insert_QR_Code,
-    get_QR_Code
+    get_QR_Code,delete_QR_Code
 }
 
 module.exports = QR_Code_Controller

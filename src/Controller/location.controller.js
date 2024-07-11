@@ -28,6 +28,20 @@ const get_Location = function(req,res){
 
 }
 
-const Location_Controller = {insert_Location,get_Location}
+
+const update_Location = function(req,res){
+    let location = req.body
+    Location_Model.update(location,function(result){
+       if(result!="Fail"){
+           res.send({data:result,message : "Update Location complete"})
+       }
+       else{
+           res.status(401).send({message : "Update Location Faild"})
+       }
+   
+    })
+   }
+
+const Location_Controller = {insert_Location,get_Location,update_Location}
 
 module.exports = Location_Controller
