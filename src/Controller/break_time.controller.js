@@ -33,10 +33,10 @@ const update_Break_Time = function(req,res){
     let time = req.body.time
     Break_Time_Model.update(time,function(result){
        if(result!="Fail"){
-           res.send({data:result,message : "Get break_time complete"})
+           res.send({data:result,message : "Update break_time complete"})
        }
        else{
-           res.status(401).send({message : "Get break_time Faild"})
+           res.status(401).send({message : "Update break_time Faild"})
        }
    
     })
