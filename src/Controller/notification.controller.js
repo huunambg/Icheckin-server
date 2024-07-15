@@ -2,6 +2,7 @@ const Notification_Model = require('../Model/notification.model')
 const Personnel_Model = require('../Model/personnel.model')
 const admin = require('../Common/firebaseadminconfig');
 const { response } = require('express');
+const { token } = require('morgan');
 
 
 const insert_Notification = function (req, res) {
@@ -97,6 +98,19 @@ const sendNotification = async function (message) {
 }
 
 
+const sendNotificationToken = function(fcm_token,image,message,name){
+    const data = {
+        token: fcm_token,
+        notification: {
+            title: name,
+            body: message.content,
+            image: image
+        }
+    };
+    sendNotification(data)
+}
+
+
 const pushNotification= async function(req,res){
     let notification = req.body
     const message = {
@@ -114,7 +128,7 @@ const pushNotification= async function(req,res){
 
 const Notification_Controller = {
     insert_Notification,
-    get_All_Notification, update_Notification, delete_Notification,pushNotification
+    get_All_Notification, update_Notification, delete_Notification,pushNotification,sendNotificationToken
 }
 
 module.exports = Notification_Controller

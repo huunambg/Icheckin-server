@@ -85,6 +85,17 @@ Personnel_Model.updateAvatar = function(personnel_id,image,result){
         }
     })
 }
+Personnel_Model.updateFCMToken = function(personnel_id,token,result){
+    let sql = `UPDATE personnel SET fcm_token ='${token}' WHERE personnel_id = '${personnel_id}'`
+    db.query(sql,function(err,data){
+        if(err){
+            result("Fail")
+        }
+        else{
+            result(data)
+        }
+    })
+}
 
 
 
@@ -103,6 +114,21 @@ Personnel_Model.delete = function(personnel_id,result){
 
 Personnel_Model.getAll = function (result) {
     let sql = `SELECT * FROM personnel`
+
+    db.query(sql, function (err, data) {
+        if (err) {
+            console.log(err)
+            result("Fail")
+        }
+        else {
+            result(data)
+        }
+
+    })
+}
+
+Personnel_Model.getAllAdmin = function (result) {
+    let sql = `SELECT * FROM personnel where role = 'admin'`
 
     db.query(sql, function (err, data) {
         if (err) {

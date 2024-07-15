@@ -56,6 +56,17 @@ const get_All_Personnel = function (req, res) {
     })
 
 }
+
+const get_All_Personnel_Admin = function (req, res) {
+    Personnel_Model.getAllAdmin(function (result) {
+        if (result != "Fail") {
+            res.send({ data: result })
+        }
+    })
+
+}
+
+
 const get_Personnel_With_Filter = function (req, res) {
     let search = req.params.search
     Personnel_Model.getWithFilter(search, function (result) {
@@ -91,17 +102,28 @@ const update_Avatar = function (req, res) {
     })
 
 }
+const update_FCM_Token = function (req, res) {
+    let token = req.body.token
+    let personnel_id = req.params.personnel_id
+    Personnel_Model.updateFCMToken(personnel_id, token, function (result) {
+        if (result != "Fail") {
+            res.send({ data: result, message: "Cập nhật thông tin thành công" })
+        } else {
+            res.status(401).send({ data: result, message: "Cập nhật thông tin thất bại" })
+        }
+    })
 
+}
 
 const delete_Personnel = function (req, res) {
     let personnel_id = req.params.personnel_id
     Personnel_Model.delete(personnel_id, function (result) {
         if (result != "Fail") {
-            if(result.affectedRows==0){
+            if (result.affectedRows == 0) {
                 res.status(401).send({ data: result, message: "Không tìm thấy người dùng" })
-              }else{
+            } else {
                 res.send({ data: result, message: "Xóa thành công" })
-              }
+            }
         } else {
             res.send({ data: result, message: "Xóa thất bại" })
         }
@@ -116,7 +138,7 @@ const delete_Personnel = function (req, res) {
 const Personnel_Controller = {
     create_Personnel,
     get_All_Personnel,
-    login_Personnel, update_Personnel, delete_Personnel, get_Personnel_With_Filter,update_Avatar
+    login_Personnel, update_Personnel, delete_Personnel, get_Personnel_With_Filter, update_Avatar, get_All_Personnel_Admin,update_FCM_Token
 }
 
 
