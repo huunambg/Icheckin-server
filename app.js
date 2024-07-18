@@ -24,9 +24,9 @@ io.on('connection', (client) => {
     MessageModel.insert(data['message'],function (result){
       console.log("Add message success");
     })
-    // if(data['fcm_token']!=""){
-    //   Notification_Controller.sendNotificationToken(data['fcm_token'],data['image'],data['message'],data['personnel_name'])
-    // }
+    if(data['fcm_token']!=""){
+      Notification_Controller.sendNotificationToken(data['fcm_token'],data['image'],data['message'],data['personnel_name'])
+    }
 
     io.to(room).emit('chat message', data['message']);
     console.log(`Message received in room ${room} : ${data['message']['content']}`);
