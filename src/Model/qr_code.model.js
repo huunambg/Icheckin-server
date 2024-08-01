@@ -19,6 +19,21 @@ QR_Code_Model.insert = function(qr_code,result){
 
 }
 
+
+QR_Code_Model.update = function(qr_code,id,result){
+
+    let sql = `UPDATE qr_code SET ? WHERE id = '${id}'`
+
+    db.query(sql,qr_code,function(err,data){
+        if(err){
+            result("Fail")
+        }else{
+            result(data)
+        }
+    })
+
+}
+
 QR_Code_Model.get = function(result){
 
     let sql = "SELECT * FROM qr_code "
