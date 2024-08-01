@@ -21,7 +21,7 @@ QR_Code_Model.insert = function(qr_code,result){
 
 QR_Code_Model.get = function(result){
 
-    let sql = "SELECT * FROM qr_code WHERE status = 'oke'"
+    let sql = "SELECT * FROM qr_code "
 
     db.query(sql,function(err,data){
         if(err){
