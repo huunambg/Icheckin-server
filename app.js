@@ -34,7 +34,7 @@ io.on('connection', (client) => {
       console.log("Add message success");
     })
     if(data['fcm_token']!=""){
-    //  Notification_Controller.sendNotificationToken(data['fcm_token'],data['image'],data['message'],data['personnel_name'])
+     Notification_Controller.sendNotificationToken(data['fcm_token'],data['image'],data['message'],data['personnel_name'])
     }
 
     io.to(room).emit('chat message', data['message']);
