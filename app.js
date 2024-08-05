@@ -6,7 +6,14 @@ const { Server } = require('socket.io');
 const cors = require('cors')
 const Notification_Controller = require('./src/Controller/notification.controller');
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true
+  }
+});
 const MessageModel = require('./src/Model/message.model')
 
 io.on('connection', (client) => {
@@ -20,12 +27,14 @@ io.on('connection', (client) => {
   });
 
   client.on('message', (data) => {
-    console.log(data['message']);
+    // console.log(data)
+    // io.emit("message2",data)
+   console.log(data['message']);
     MessageModel.insert(data['message'],function (result){
       console.log("Add message success");
     })
     if(data['fcm_token']!=""){
-      Notification_Controller.sendNotificationToken(data['fcm_token'],data['image'],data['message'],data['personnel_name'])
+    //  Notification_Controller.sendNotificationToken(data['fcm_token'],data['image'],data['message'],data['personnel_name'])
     }
 
     io.to(room).emit('chat message', data['message']);
