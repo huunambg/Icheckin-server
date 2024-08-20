@@ -111,6 +111,20 @@ const sendNotificationToken = function(fcm_token,image,message,name){
 }
 
 
+const sendNotificationActiveAccount = function(req, res){
+    let fcm_token= req.body.fcm_token
+    let username= req.body.username
+    const data = {
+        token: fcm_token,
+        notification: {
+            title: "Xin chào "+username,
+            body: "Tài khoản của bạn đã được kích hoạt thành công bạn có thể đăng nhập để sử dụng",
+        }
+    };
+    sendNotification(data)
+}
+
+
 const pushNotification= async function(req,res){
     let notification = req.body
     const message = {

@@ -8,5 +8,6 @@ router.put("/update-notification/:id",Notification_Controller.update_Notificatio
 router.delete("/delete-notification/:id",Notification_Controller.delete_Notification )
 router.get("/get-all-notification",Notification_Controller.get_All_Notification)
 router.post("/send-notification",Notification_Controller.pushNotification )
+router.post("/send-notification-active",Notification_Controller.sendNotificationActiveAccount)
 module.exports = router
 //ahihisdssđfdf
