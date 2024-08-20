@@ -85,6 +85,32 @@ Personnel_Model.updateAvatar = function(personnel_id,image,result){
         }
     })
 }
+
+Personnel_Model.updateIsActive = function(personnel_id,status,result){
+    let sql = `UPDATE personnel SET is_active ='${status}' WHERE personnel_id = '${personnel_id}'`
+    db.query(sql,function(err,data){
+        if(err){
+            result("Fail")
+        }
+        else{
+            result(data)
+        }
+    })
+}
+
+Personnel_Model.updateBank = function(personnel_id,bank,result){
+    let sql = `UPDATE personnel SET bank_name ='${bank.bank_name}',account_number ='${bank.account_number}',owner_name ='${bank.owner_name}' WHERE personnel_id = '${personnel_id}'`
+    db.query(sql,function(err,data){
+        if(err){
+            result("Fail")
+        }
+        else{
+            result(data)
+        }
+    })
+}
+
+
 Personnel_Model.updateFCMToken = function(personnel_id,token,result){
     let sql = `UPDATE personnel SET fcm_token ='${token}' WHERE personnel_id = '${personnel_id}'`
     db.query(sql,function(err,data){

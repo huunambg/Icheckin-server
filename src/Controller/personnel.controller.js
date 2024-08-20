@@ -102,6 +102,40 @@ const update_Avatar = function (req, res) {
     })
 
 }
+
+
+const update_IsActive = function (req, res) {
+    let status = req.body.status
+    let personnel_id = req.params.personnel_id
+    Personnel_Model.updateIsActive(personnel_id, status, function (result) {
+        if (result != "Fail") {
+            if (result.changedRows > 0) {
+                res.send({ data: result, message: "Cập nhật thông tin thành công" })
+            } else {
+                res.status(400).send({ data: result, message: "Không tìm thấy tài khoản trên" })
+            }
+        } else {
+            res.send({ data: result, message: "Cập nhật thông tin thất bại" })
+        }
+    })
+
+}
+const update_Bank = function (req, res) {
+    let bank = req.body
+    let personnel_id = req.params.personnel_id
+    Personnel_Model.updateBank(personnel_id, bank, function (result) {
+        if (result != "Fail") {
+            if (result.changedRows > 0) {
+                res.send({ data: result, message: "Cập nhật thông tin thành công" })
+            } else {
+                res.status(400).send({ data: result, message: "Không tìm thấy tài khoản trên" })
+            }
+        } else {
+            res.send({ data: result, message: "Cập nhật thông tin thất bại" })
+        }
+    })
+
+}
 const update_FCM_Token = function (req, res) {
     let token = req.body.token
     let personnel_id = req.params.personnel_id
@@ -138,8 +172,13 @@ const delete_Personnel = function (req, res) {
 const Personnel_Controller = {
     create_Personnel,
     get_All_Personnel,
-    login_Personnel, update_Personnel, delete_Personnel, get_Personnel_With_Filter, update_Avatar, get_All_Personnel_Admin,update_FCM_Token
+    login_Personnel,
+     update_Personnel, 
+     delete_Personnel, get_Personnel_With_Filter,
+      update_Avatar, get_All_Personnel_Admin,
+       update_FCM_Token, update_IsActive, update_Bank
 }
+
 
 
 module.exports = Personnel_Controller
