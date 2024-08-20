@@ -142,7 +142,7 @@ const pushNotification= async function(req,res){
 
 const Notification_Controller = {
     insert_Notification,
-    get_All_Notification, update_Notification, delete_Notification,pushNotification,sendNotificationToken
+    get_All_Notification, update_Notification, delete_Notification,pushNotification,sendNotificationToken,sendNotificationActiveAccount
 }
 
 module.exports = Notification_Controller
