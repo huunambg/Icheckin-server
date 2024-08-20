@@ -36,7 +36,7 @@ const insert_Notification = function (req, res) {
                     body: notification.description
                 }
             };
-         await  sendNotification(message)
+            await sendNotification(message)
             res.send({
                 message: "Insert Notification Complete"
             })
@@ -87,8 +87,8 @@ const get_All_Notification = function (req, res) {
 
 const sendNotification = async function (message) {
     try {
-      await  admin.messaging().send(message).then((response) => {
-        console.log(response)
+        await admin.messaging().send(message).then((response) => {
+            console.log(response)
         }).catch((error) => {
             console.log(error)
         })
@@ -98,7 +98,7 @@ const sendNotification = async function (message) {
 }
 
 
-const sendNotificationToken = async function(fcm_token,image,message,name){
+const sendNotificationToken = function (fcm_token, image, message, name) {
     const data = {
         token: fcm_token,
         notification: {
@@ -107,28 +107,30 @@ const sendNotificationToken = async function(fcm_token,image,message,name){
             image: image
         }
     };
-    await  sendNotification(data)
-    res.send({
-        message: "Sent Notification Complete"
-    })
-}
-
-
-const sendNotificationActiveAccount = function(req, res){
-    let fcm_token= req.body.fcm_token
-    let username= req.body.username
-    const data = {
-        token: fcm_token,
-        notification: {
-            title: "Xin chào "+username,
-            body: "Tài khoản của bạn đã được kích hoạt thành công bạn có thể đăng nhập để sử dụng",
-        }
-    };
     sendNotification(data)
 }
 
 
-const pushNotification= async function(req,res){
+const sendNotificationActiveAccount = async function (req, res) {
+    let fcm_token = req.body.fcm_token
+    let username = req.body.username
+    const data = {
+        token: fcm_token,
+        notification: {
+            title: "Xin chào " + username,
+            body: "Tài khoản của bạn đã được kích hoạt thành công bạn có thể đăng nhập để sử dụng",
+        }
+    };
+    await sendNotification(data)
+    res.send({
+        message: "Sent Notification Complete"
+    })
+
+
+}
+
+
+const pushNotification = async function (req, res) {
     let notification = req.body
     const message = {
         topic: "personnel",
@@ -145,7 +147,7 @@ const pushNotification= async function(req,res){
 
 const Notification_Controller = {
     insert_Notification,
-    get_All_Notification, update_Notification, delete_Notification,pushNotification,sendNotificationToken,sendNotificationActiveAccount
+    get_All_Notification, update_Notification, delete_Notification, pushNotification, sendNotificationToken, sendNotificationActiveAccount
 }
 
 module.exports = Notification_Controller
