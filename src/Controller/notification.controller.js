@@ -98,7 +98,7 @@ const sendNotification = async function (message) {
 }
 
 
-const sendNotificationToken = function(fcm_token,image,message,name){
+const sendNotificationToken = async function(fcm_token,image,message,name){
     const data = {
         token: fcm_token,
         notification: {
@@ -107,7 +107,10 @@ const sendNotificationToken = function(fcm_token,image,message,name){
             image: image
         }
     };
-    sendNotification(data)
+    await  sendNotification(data)
+    res.send({
+        message: "Sent Notification Complete"
+    })
 }
 
 
